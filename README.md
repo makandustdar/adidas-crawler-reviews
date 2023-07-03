@@ -18,7 +18,7 @@ A comprehensive web crawler for extracting product information and user reviews 
 ## Installation
 1. Clone the repository:
 ```sh
-git clone https://github.com/your_username/adidas_product_crawler.git
+git clone https://github.com/your_username/adidas-crawler-reviews.git
 ```
 2. Install the required packages:
 
@@ -31,7 +31,7 @@ Usage
 1. Navigate to the project folder:
 
 ```sh
-cd adidas_product_crawler
+cd adidas-crawler-reviews
 ```
 2. Run the main script:
 ```sh
