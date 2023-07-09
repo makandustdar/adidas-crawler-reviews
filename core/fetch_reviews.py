@@ -1,12 +1,11 @@
 import json
-import time
 
 from selenium.common import StaleElementReferenceException, TimeoutException
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
 
 from core.cookie import cookie_handler
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
 
 def get_reviews(url, driver=None, debug_mode=False, directed=False):
@@ -14,7 +13,6 @@ def get_reviews(url, driver=None, debug_mode=False, directed=False):
         from selenium import webdriver
         driver = webdriver.Chrome()
         driver.get(url)
-        # Close Adidas club popup and cookie
     cookie_handler(driver)
 
     result = {
@@ -22,7 +20,6 @@ def get_reviews(url, driver=None, debug_mode=False, directed=False):
         'count': 0,
         'url': url
     }
-    # is_reviews = driver.find_element(By.CLASS_NAME, "accordion-title___2sTgR")
     is_reviews = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.CLASS_NAME, "accordion-title___2sTgR")))
 
     if is_reviews.text != "Reviews":
@@ -33,10 +30,11 @@ def get_reviews(url, driver=None, debug_mode=False, directed=False):
         is_reviews = False
 
     if is_reviews:
-        reviews_btn = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.ID, "navigation-target-reviews")))
-        reviews_btn.click()
         while True:
-            reviews_box = WebDriverWait(driver, 20).until(
+            reviews_btn = WebDriverWait(driver, 10).until(
+                EC.element_to_be_clickable((By.ID, "navigation-target-reviews")))
+            reviews_btn.click()
+            reviews_box = WebDriverWait(driver, 10).until(
                 EC.element_to_be_clickable((By.CLASS_NAME, "reviews___3fzxE"))
             )
             reviews = reviews_box.find_elements(By.TAG_NAME, "article")
@@ -74,7 +72,7 @@ def get_reviews(url, driver=None, debug_mode=False, directed=False):
                 outfile.close()
 
             try:
-                read_more_box = WebDriverWait(driver, 20).until(EC.element_to_be_clickable(
+                read_more_box = WebDriverWait(driver, 10).until(EC.element_to_be_clickable(
                     (By.XPATH, '//*[@id="bazaarvoice-container"]/div/div[1]/button'))
                 )
                 read_more_box.click()

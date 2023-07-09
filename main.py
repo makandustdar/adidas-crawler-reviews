@@ -48,13 +48,7 @@ def main():
 
         cookie_handler(driver)
 
-        while True:
-            review_div = driver.find_elements(By.ID, "navigation-target-reviews")
-            if len(review_div) > 0:
-                break
-        review_div[0].click()
-
-        get_reviews(url=url,driver=driver,debug_mode=DEBUG_MODE)
+        get_reviews(url=url, driver=driver, debug_mode=DEBUG_MODE)
 
         driver.get(url)
         time.sleep(3)
