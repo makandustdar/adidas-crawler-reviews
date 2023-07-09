@@ -54,7 +54,7 @@ def main():
                 break
         review_div[0].click()
 
-        get_reviews(driver, url, DEBUG_MODE)
+        get_reviews(url=url,driver=driver,debug_mode=DEBUG_MODE)
 
         driver.get(url)
         time.sleep(3)
@@ -63,5 +63,5 @@ def main():
 
 
 if __name__ == "__main__":
-    # main()
-    get_reviews(url="https://www.adidas.com/us/classic-3-stripes-backpack/EX6516.html", directed=True)
+    main()
+    # get_reviews(url="https://www.adidas.com/us/classic-3-stripes-backpack/EX6516.html", directed=True)
